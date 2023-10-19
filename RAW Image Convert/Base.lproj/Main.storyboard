@@ -34,19 +34,52 @@
                                     <action selector="openGalleryClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sgt-A4-Msn"/>
                                 </connections>
                             </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.80000000000000004" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="wnp-q6-MfC">
+                                <rect key="frame" x="38" y="630" width="317" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="tei-8L-g2A"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="qualitySliderValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="mzh-sf-BG8"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use ImageIO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tYY-2D-0XA">
+                                <rect key="frame" x="40" y="568" width="246" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ykh-2N-uzY">
+                                <rect key="frame" x="306" y="563" width="49" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="47" id="HZL-do-gGM"/>
+                                    <constraint firstAttribute="height" constant="31" id="vjw-Vd-ANz"/>
+                                </constraints>
+                            </switch>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="tYY-2D-0XA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="2LG-Et-fC5"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ykh-2N-uzY" secondAttribute="trailing" constant="40" id="BBG-71-Hnh"/>
+                            <constraint firstItem="d7f-gm-lrY" firstAttribute="top" secondItem="wnp-q6-MfC" secondAttribute="bottom" constant="30" id="BOD-FO-QE2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="sUi-zJ-OfO" secondAttribute="bottom" constant="50" id="E3n-Jq-2zn"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wnp-q6-MfC" secondAttribute="trailing" constant="40" id="LMi-dP-aDo"/>
+                            <constraint firstItem="Ykh-2N-uzY" firstAttribute="centerY" secondItem="tYY-2D-0XA" secondAttribute="centerY" id="Owm-Iq-Sgw"/>
                             <constraint firstItem="d7f-gm-lrY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="PEq-As-gPL"/>
+                            <constraint firstItem="Ykh-2N-uzY" firstAttribute="leading" secondItem="tYY-2D-0XA" secondAttribute="trailing" constant="20" id="SAy-zd-yXI"/>
                             <constraint firstItem="sUi-zJ-OfO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WuI-n0-PCc"/>
                             <constraint firstItem="sUi-zJ-OfO" firstAttribute="top" secondItem="d7f-gm-lrY" secondAttribute="bottom" constant="40" id="Zxv-iT-wnW"/>
+                            <constraint firstItem="wnp-q6-MfC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="kwQ-Cq-IBA"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="d7f-gm-lrY" secondAttribute="trailing" constant="40" id="vsI-F8-lHU"/>
+                            <constraint firstItem="wnp-q6-MfC" firstAttribute="top" secondItem="Ykh-2N-uzY" secondAttribute="bottom" constant="36" id="x3x-ch-wiE"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="imageIOhint" destination="tYY-2D-0XA" id="FGG-yf-LkC"/>
+                        <outlet property="methodSwitch" destination="Ykh-2N-uzY" id="hdF-pY-2p1"/>
                         <outlet property="progressBar" destination="d7f-gm-lrY" id="HVk-Gj-ucI"/>
+                        <outlet property="qualitySlider" destination="wnp-q6-MfC" id="qmm-1a-Wfm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

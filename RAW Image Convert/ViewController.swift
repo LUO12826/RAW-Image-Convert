@@ -12,12 +12,31 @@ import CoreServices
 class ViewController: UIViewController, PHPickerViewControllerDelegate {
     
     @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var qualitySlider: UISlider!
+    @IBOutlet weak var methodSwitch: UISwitch!
+    @IBOutlet weak var imageIOhint: UILabel!
+    
+    let qualityValues = [0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0] as [Float]
+    
     var selectedImageCount = 0
     var doneImageCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         progressBar.setProgress(0, animated: true)
+        
+        qualitySlider.value = 0
+        qualitySlider.minimumValue = 0
+        qualitySlider.maximumValue = Float(qualityValues.count - 1)
+        
+        imageIOhint.text = "Use ImageIO (quality: \(qualityValues[Int(qualitySlider.value)]))"
+    }
+    
+    @IBAction func qualitySliderValueChanged(_ sender: Any) {
+        let index = Int(qualitySlider.value + 0.5)
+        qualitySlider.setValue(Float(index), animated: false)
+        
+        imageIOhint.text = "Use ImageIO (quality: \(qualityValues[Int(qualitySlider.value)]))"
     }
     
     @IBAction func openGalleryClick(_ sender: Any) {
@@ -42,6 +61,9 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate {
     
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
+        
+        let useImageIO = methodSwitch.isOn
+        let quality = qualityValues[Int(qualitySlider.value)]
         
         let identifiers = results.compactMap(\.assetIdentifier)
         let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: nil)
@@ -89,8 +111,13 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate {
                 } completionHandler: { err in
                     guard err == nil else { return } // error hint
                     
-//                    self.saveJPEGdataToGallery2(data: &dngData, filename: String(resource.originalFilename.dropLast(4)) + ".jpg")
-//                    return
+                    if useImageIO {
+                        self.saveJPEGdataToGallery2(data: &dngData,
+                                                    filename: String(resource.originalFilename.dropLast(4)) + ".jpg",
+                                                    quality: quality)
+                        self.doneWithImage()
+                        return
+                    }
                     
                     let dngDataPtr = dngData.withUnsafeBytes {
                         return $0.bindMemory(to: CChar.self).baseAddress
@@ -184,7 +211,7 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate {
     // we can also use ImageIO related api to convert DNG to jpg. The image
     // appearance is the same as the embedded JPEG preview. But here we need
     // to set the HDR gain map manually.
-    func saveJPEGdataToGallery2(data: inout Data, filename: String) {
+    func saveJPEGdataToGallery2(data: inout Data, filename: String, quality: Float) {
         let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let outputPath = docDir.appendingPathComponent(filename)
 
@@ -196,7 +223,7 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate {
         else { return }
         
         properties.removeValue(forKey: kCGImagePropertyDNGDictionary)
-        properties[kCGImageDestinationLossyCompressionQuality] = 0.8
+        properties[kCGImageDestinationLossyCompressionQuality] = quality
 
         CGImageDestinationAddImageFromSource(dest, source, 0, properties as CFDictionary)
 
