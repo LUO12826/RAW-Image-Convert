@@ -23,10 +23,10 @@
                                 </constraints>
                             </progressView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sUi-zJ-OfO">
-                                <rect key="frame" x="112" y="733" width="169" height="35"/>
+                                <rect key="frame" x="96.666666666666686" y="733" width="200" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="Awo-at-xyD"/>
-                                    <constraint firstAttribute="width" constant="169" id="jzZ-yy-mbo"/>
+                                    <constraint firstAttribute="width" constant="200" id="jzZ-yy-mbo"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="tinted" title="select RAW photos"/>

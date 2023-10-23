@@ -105,8 +105,11 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate {
                     return
                 }
                 
+                let reqOptions = PHAssetResourceRequestOptions()
+                reqOptions.isNetworkAccessAllowed = true
+                
                 var dngData = Data()
-                PHAssetResourceManager.default().requestData(for: resource, options: nil) { data in
+                PHAssetResourceManager.default().requestData(for: resource, options: reqOptions) { data in
                     dngData.append(data)
                 } completionHandler: { err in
                     guard err == nil else { return } // error hint
